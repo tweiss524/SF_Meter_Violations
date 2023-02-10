@@ -63,8 +63,7 @@ def get_probs(X, y, k):
 def build_figure(df, X, y, k):
 
     fig = px.scatter(df, x="pgc", y="age", color="color", 
-    color_discrete_sequence=['#F63366', '#FFFFFF'], 
-    opacity=0.4, 
+    color_discrete_sequence=px.colors.qualitative.Vivid,  
     symbol='symbol', 
     symbol_sequence=['circle-open'],
     title='Decision boundary vs. k')
