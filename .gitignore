@@ -131,6 +131,7 @@ dmypy.json
 data
 
 .DS_store
+
 notebooks/catboost_info/learn/events.out.tfevents
 .gitignore
 notebooks/catboost_info/learn_error.tsv
