@@ -131,3 +131,12 @@ dmypy.json
 data
 
 .DS_store
+notebooks/catboost_info/learn/events.out.tfevents
+.gitignore
+notebooks/catboost_info/learn_error.tsv
+.gitignore
+notebooks/catboost_info/catboost_training.json
+.gitignore
+notebooks/catboost_info/time_left.tsv
+notebooks/catboost_info/test/events.out.tfevents
+notebooks/catboost_info/test_error.tsv
