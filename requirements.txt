@@ -2,5 +2,5 @@ geopandas
 numpy
 pandas
 plotly
-shapely
+shapely=2.0.1
 seaborn
