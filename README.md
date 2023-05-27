@@ -9,4 +9,11 @@ The objective of this project was to investigate crime in San Francisco. In part
 # Notebooks
 
 A list of all the notebooks and their functions are explained below:
-[Link to pyfile.ipynb](eda.ipynb)
+- [eda.ipynb](eda.ipynb)
+- [meter_eda.ipynb](meter_eda.ipynb)
+- [preprocess.ipynb](preprocess.ipynb)
+- [initial_possion.ipynb](initial_poisson.ipynb)
+- [prob_i.ipynb](prob_i.ipynb)
+- [prob_e_and_i.ipynb](prob_e_and_i.ipynb)
+- [final_probabilities.ipynb](final_probabilities.ipynb)
+- [reformat_table.ipynb](reformat_table.ipynb)
