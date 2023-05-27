@@ -17,7 +17,8 @@ Four main data sources were used throughout this analysis:
 - [SFMTA Parking Meter Detailed Revenue Transactions Dataset](https://data.sfgov.org/Transportation/SFMTA-Parking-Meter-Detailed-Revenue-Transactions/imvp-dq3v): tabular dataset with about 157M rows and 8 columnswhich contained information about which meters were active, and intervals of when each meter was paid throughout the day.
 - [Map of Parking Meters Dataset](https://data.sfgov.org/Transportation/Map-of-Parking-Meters/fqfu-vcqd): tabular dataset with about 35k rows and 40 columns which contained information about which streets each meter was on.
 
-With this information, we gain knowledge of all instances when someone was parked illegally on a street due to not paying a meter, with the assumption that all metered spots are always taken. A detailed visualization of the data pipeline is shown in Figure 1 below: 
+With this information, we gain knowledge of all instances when someone was parked illegally on a street due to not paying a meter, with the assumption that all metered spots are always taken. A detailed visualization of the data pipeline is shown below: 
+![Data Pipeline](Imgs/data_process.png)
 
 # Notebooks
 
@@ -54,11 +55,9 @@ The following formula was used to empirically calculate an estimate of the denom
 $$\widehat{P}(I \mid T = t, S = s, W = w) = \frac{\sum\limits_{\text{weekday(date)} = w} \mathbb{I}[\text{num unpaid meters}(s, t, \text{date}) > 0]}{\text{num weekday(date)} = w}$$
 
 To give an interpretation of these formulas, first consider the numerator. We have that each citation that occurred on day $w$ in street segment $s$ was assigned to a corresponding 15 minute bin. If there were multiple tickets on the same day in the same time bin, we recorded only one ticket, thus giving the indicator of there being at least one instance of enforcement and illegal parking. Lastly, the number of tickets in each time bin $t$ was summed and divided by the total number of weekdays corresponding to day $w$ in the dataset, thus giving an estimate of the numerator. Figure 4 shows a visual representation of how this was calculated:
-    \makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{numerator_analysis.png}}
-    \caption{A simple example estimating the numerator where $W=$ Wednesday on one particular street segment.}
+    ![Numerator](Imgs/numerator_analysis.png)
     
 Now, considering the denominator, we have that for a street segment $s$ and weekday $w$, the 15 minute time bins that each transaction covers for each meter on street $s$ was recorded. If there were no transactions that covered a 15 minute time bin, or if there were gaps in transactions that exceeded a 3 minute grace period (time allowed for one car to leave and another car to park and pay), we considered the meter to have been unpaid during that time bin.  Next, we aggregated all the time intervals for when there was at least one unpaid meter and used this to generate an indicator of an unpaid meter for the corresponding time bin on street $s$. Lastly, these indicators were summed up over all weekdays corresponding to day $w$ and divided by the total number of weekdays corresponding to day $w$ in the dataset, thus giving an estimate of the denominator. Figure 5 shows a visual representation of how this was calculated over one day:
-    \makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{denominator_analysis.png}}
-    \caption{A simple example estimating the denominator where $W=$ Wednesday on one particular street segment.}
+    ![Denominator](Imgs/denominator_analysis.png)
     
 In devising this model, the following assumptions were made. The first is that at any given time, every metered spot available will be filled. In this sense, the assumption is made that if there are any meters not being paid for on a particular street segment during a particular time interval, then we conclude that there is someone parking illegally (this is not always true and thus results in many underestimated probabilities). The second assumption is that parking enforcement will spend at most fifteen minutes on a street segment. The final assumption is that if parking enforcement is on a street segment, they will ticket all cars violating parking regulations with 100$\%$ certainty.
