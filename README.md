@@ -24,10 +24,14 @@ With this information, we gain knowledge of all instances when someone was parke
 A list of all the notebooks and their functions are explained below:
 - [eda.ipynb](notebooks/eda.ipynb): compilation of basic EDA performed on the SFMTA Parking Citations Dataset used for presentation purposes.
 - eda_\[name\].ipynb: basic EDA performed by each member of the group.
-- [meter_eda.ipynb](meter_eda.ipynb): basic EDA performed on the SFMTA Parking Meter Detailed Revenue Transactions Dataset.
-- [preprocess.ipynb](preprocess.ipynb): data preprocessing for Citations and Street Sweeping datasets, including filtering and dropping duplicates.
-- [initial_possion.ipynb](initial_poisson.ipynb): attempted initial model utilizing Poisson regression in order to predict the number of citations on a particular street segment at a given time. This notebook was ultimately not included in the final analysis.
-- [prob_e_and_i.ipynb](prob_e_and_i.ipynb): utilized the Citations and Street Sweeping dataset in order to estimate the probability of enforcement being on a steet while someone was illegally parked. 
-- [prob_i.ipynb](prob_i.ipynb): utilized the Street Sweeping and Meter transactions/locations datasets in order to estimate the probability of someone being illegally parked.
-- [final_probabilities.ipynb](final_probabilities.ipynb): used the final datasets from [prob_e_and_i.ipynb](prob_e_and_i.ipynb) and [prob_i.ipynb](prob_i.ipynb) to estimate our final probabilities of meter citations.
-- [reformat_table.ipynb](reformat_table.ipynb): pivoted the dataset from [final_probabilities.ipynb](final_probabilities.ipynb) and added time lags in order to be in the correct format for creating the interactive map.
+- [meter_eda.ipynb](notebooks/meter_eda.ipynb): basic EDA performed on the SFMTA Parking Meter Detailed Revenue Transactions Dataset.
+- [preprocess.ipynb](notebooks/preprocess.ipynb): data preprocessing for Citations and Street Sweeping datasets, including filtering and dropping duplicates.
+- [initial_possion.ipynb](notebooks/initial_poisson.ipynb): attempted initial model utilizing Poisson regression in order to predict the number of citations on a particular street segment at a given time. This notebook was ultimately not included in the final analysis.
+- [prob_e_and_i.ipynb](notebooks/prob_e_and_i.ipynb): utilized the Citations and Street Sweeping dataset in order to estimate the probability of enforcement being on a steet while someone was illegally parked. 
+- [prob_i.ipynb](notebooks/prob_i.ipynb): utilized the Street Sweeping and Meter transactions/locations datasets in order to estimate the probability of someone being illegally parked.
+- [final_probabilities.ipynb](notebooks/final_probabilities.ipynb): used the final datasets from [prob_e_and_i.ipynb](notebooks/prob_e_and_i.ipynb) and [prob_i.ipynb](notebooks/prob_i.ipynb) to estimate our final probabilities of meter citations.
+- [reformat_table.ipynb](notebooks/reformat_table.ipynb): pivoted the dataset from [final_probabilities.ipynb](notebooks/final_probabilities.ipynb) and added time lags in order to be in the correct format for creating the interactive map.
+
+# Analysis
+
+The goal was to calculate $$\mathbb{P}(Ticket).$$
