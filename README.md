@@ -18,6 +18,7 @@ Four main data sources were used throughout this analysis:
 - [Map of Parking Meters Dataset](https://data.sfgov.org/Transportation/Map-of-Parking-Meters/fqfu-vcqd): tabular dataset with about 35k rows and 40 columns which contained information about which streets each meter was on.
 
 With this information, we gain knowledge of all instances when someone was parked illegally on a street due to not paying a meter, with the assumption that all metered spots are always taken. A detailed visualization of the data pipeline is shown below: 
+
 ![Data Pipeline](Imgs/data_process.png)
 
 # Notebooks
@@ -54,10 +55,42 @@ The following formula was used to empirically calculate an estimate of the denom
 
 $$\widehat{P}(I \mid T = t, S = s, W = w) = \frac{\sum\limits_{\text{weekday(date)} = w} \mathbb{I}[\text{num unpaid meters}(s, t, \text{date}) > 0]}{\text{num weekday(date)} = w}$$
 
-To give an interpretation of these formulas, first consider the numerator. We have that each citation that occurred on day $w$ in street segment $s$ was assigned to a corresponding 15 minute bin. If there were multiple tickets on the same day in the same time bin, we recorded only one ticket, thus giving the indicator of there being at least one instance of enforcement and illegal parking. Lastly, the number of tickets in each time bin $t$ was summed and divided by the total number of weekdays corresponding to day $w$ in the dataset, thus giving an estimate of the numerator. Figure 4 shows a visual representation of how this was calculated:
-    ![Numerator](Imgs/numerator_analysis.png)
+To give an interpretation of these formulas, first consider the numerator. We have that each citation that occurred on day $w$ in street segment $s$ was assigned to a corresponding 15 minute bin. If there were multiple tickets on the same day in the same time bin, we recorded only one ticket, thus giving the indicator of there being at least one instance of enforcement and illegal parking. Lastly, the number of tickets in each time bin $t$ was summed and divided by the total number of weekdays corresponding to day $w$ in the dataset, thus giving an estimate of the numerator. The image below shows a visual representation of how this was calculated:
+
+![Numerator](Imgs/numerator_analysis.png)
     
-Now, considering the denominator, we have that for a street segment $s$ and weekday $w$, the 15 minute time bins that each transaction covers for each meter on street $s$ was recorded. If there were no transactions that covered a 15 minute time bin, or if there were gaps in transactions that exceeded a 3 minute grace period (time allowed for one car to leave and another car to park and pay), we considered the meter to have been unpaid during that time bin.  Next, we aggregated all the time intervals for when there was at least one unpaid meter and used this to generate an indicator of an unpaid meter for the corresponding time bin on street $s$. Lastly, these indicators were summed up over all weekdays corresponding to day $w$ and divided by the total number of weekdays corresponding to day $w$ in the dataset, thus giving an estimate of the denominator. Figure 5 shows a visual representation of how this was calculated over one day:
-    ![Denominator](Imgs/denominator_analysis.png)
+Now, considering the denominator, we have that for a street segment $s$ and weekday $w$, the 15 minute time bins that each transaction covers for each meter on street $s$ was recorded. If there were no transactions that covered a 15 minute time bin, or if there were gaps in transactions that exceeded a 3 minute grace period (time allowed for one car to leave and another car to park and pay), we considered the meter to have been unpaid during that time bin.  Next, we aggregated all the time intervals for when there was at least one unpaid meter and used this to generate an indicator of an unpaid meter for the corresponding time bin on street $s$. Lastly, these indicators were summed up over all weekdays corresponding to day $w$ and divided by the total number of weekdays corresponding to day $w$ in the dataset, thus giving an estimate of the denominator. The image below shows a visual representation of how this was calculated over one day:
+
+![Denominator](Imgs/denominator_analysis.png)
     
 In devising this model, the following assumptions were made. The first is that at any given time, every metered spot available will be filled. In this sense, the assumption is made that if there are any meters not being paid for on a particular street segment during a particular time interval, then we conclude that there is someone parking illegally (this is not always true and thus results in many underestimated probabilities). The second assumption is that parking enforcement will spend at most fifteen minutes on a street segment. The final assumption is that if parking enforcement is on a street segment, they will ticket all cars violating parking regulations with 100$\%$ certainty.
+
+# References 
+SFMTA - Parking Citations
+%\textit{Wikipedia}. Wikimedia Foundation.
+\\\texttt{https://data.sfgov.org/Transportation/SFMTA-Parking-Citations/ab4h-6ztd}
+
+Street Sweeping Schedule
+%\textit{Probability and statistics}.
+\\\texttt{https://data.sfgov.org/City-Infrastructure/Street-Sweeping-Schedule/yhqp-riqs}
+
+SFMTA Parking Meter Detailed Revenue Transactions
+%\textit{Probability and statistics}.
+\\\texttt{https://data.sfgov.org/Transportation/SFMTA-Parking-Meter-Detailed-Revenue-Transactions/\\imvp-dq3v/data}
+
+Map of Parking Meters
+%\textit{Probability and statistics}.
+\\\texttt{https://data.sfgov.org/Transportation/Map-of-Parking-Meters/fqfu-vcqd}
+
+US Census Geocoder
+%\textit{Statistics How To}.
+\\\texttt{https://census-geocoder.readthedocs.io/en/latest/}
+
+Ning Jia (2022): What are the odds of getting a parking ticket in Toronto?
+\\\texttt{https://towardsdatascience.com/what-are-the-odds-of-getting-a-parking-ticket-in-\\
+toronto-1f090d
+d0c608}
+
+Song Gao, Mingxiao Li, Yunlei Liang, Joseph Marks, Yuhao Kang \& Moying Li (2019):
+Predicting the spatiotemporal legality of on-street parking using open data and machine learning
+\\\texttt{https://www.tandfonline.com/doi/full/10.1080/19475683.2019.1679882}
