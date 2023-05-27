@@ -22,7 +22,8 @@ With this information, we gain knowledge of all instances when someone was parke
 # Notebooks
 
 A list of all the notebooks and their functions are explained below:
-- [eda.ipynb](eda.ipynb): basic EDA performed on the SFMTA Parking Citations Dataset.
+- [eda.ipynb](eda.ipynb): compilation of basic EDA performed on the SFMTA Parking Citations Dataset used for presentation purposes.
+- eda_\[name\].ipynb: basic EDA performed by each member of the group.
 - [meter_eda.ipynb](meter_eda.ipynb): basic EDA performed on the SFMTA Parking Meter Detailed Revenue Transactions Dataset.
 - [preprocess.ipynb](preprocess.ipynb): data preprocessing for Citations and Street Sweeping datasets, including filtering and dropping duplicates.
 - [initial_possion.ipynb](initial_poisson.ipynb): attempted initial model utilizing Poisson regression in order to predict the number of citations on a particular street segment at a given time. This notebook was ultimately not included in the final analysis.
