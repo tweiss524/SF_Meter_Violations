@@ -34,23 +34,29 @@ A list of all the notebooks and their functions are explained below:
 
 # Analysis
 
-The goal was to calculate the probability of getting a parking ticket given a street section and day of the week/time of day and given someone has not paid the meter. At a high level, the idea behind calculating probabilities of receiving a parking ticket is to divide each 24 hour day into fifteen minute time bins, conditioning on this as well as a street segment and weekday (e.g. probability of getting a citation from 9:00-9:15am on a typical Friday on street segment $A$).
-In terms of notation, define \begin{itemize}
-    \item Weekday: $W \in \{\text{Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday}\}$
-    \item Street Segment: $S \in \{1, 2, \dots, N\}$ where $N$ is the number of unique streets
-    \item Start of Time Interval (15 minute increments): $T \in \{9\text{:}00 \text{am}, 9\text{:}15 \text{am}, 9\text{:}30 \text{am}, \dots, 5\text{:}45 \text{pm}\}$
-    \item $E = \text{event that enforcement happens}$
-    \item $I = \text{event that illegal parking happens}$
-\end{itemize}
+The goal was to calculate the probability of getting a parking ticket given a street section and day of the week/time of day and given someone has not paid the meter. To do this, we divide each 24 hour day into fifteen minute time bins, conditioning on this as well as a street segment and weekday (e.g. probability of getting a citation from 9:00-9:15am on a typical Friday on street segment $A$).
+
+In terms of notation, define
+- Weekday: $W \in \{\text{Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday}\}$
+- Street Segment: $S \in \{1, 2, \dots, N\}$ where $N$ is the number of unique streets
+- Start of Time Interval (15 minute increments): $T \in \{9\text{:}00 \text{am}, 9\text{:}15 \text{am}, 9\text{:}30 \text{am}, \dots, 5\text{:}45 \text{pm}\}$
+- $E = \text{event that enforcement happens}$
+- $I = \text{event that illegal parking happens}$
+
 Then, the probability of getting a ticket given a time bin $T$, a street segment $S$, and a day of week $W$ is denoted as 
 \begin{align*}
     p_{t, s, w} &= P(E \mid I, T = t, S = s, W = w)\\
     &= \frac{P(E \cap I \mid T = t, S = s, W = w)}{P(I \mid T = t, S = s, W = w)}
 \end{align*}
-where we used the fact that probability of getting a ticket is equivalent to probability of enforcement being on the same street in the same time interval. Then, the following formulas were used to empirically calculate estimates of the numerator and denominator:
+
+The following formula was used to empirically calculate an estimate of the numerator as carried out in [prob_e_and_i.ipynb](notebooks/prob_e_and_i.ipynb):
 $$\stackon[-8pt]{P(E \cap I \mid T = t, S = s, W = w)}{\vstretch{2}{\hstretch{4}{\widehat{\phantom{\;\;\;\;\;\;\;\;}}}}} = \frac{\sum\limits_{\text{weekday(date)} = w} \mathbbm{1}[\text{\#tickets}(s, t, \text{date}) > 0]}{\text{\#weekday(date)} = w}$$
+
+The following formula was used to empirically calculate an estimate of the denominator as carried out in [prob_i.ipynb](notebooks/prob_i.ipynb):
+
 $$\stackon[-8pt]{P(I \mid T = t, S = s, W = w)}{\vstretch{2}{\hstretch{4}{\widehat{\phantom{\;\;\;\;\;\;\;\;}}}}} = \frac{\sum\limits_{\text{weekday(date)} = w} \mathbbm{1}[\text{\#unpaid meters}(s, t, \text{date}) > 0]}{\text{\#weekday(date)} = w}$$
-where \#tickets() is a function that takes in a street segment, time bin, and date, and outputs the number of tickets given, while weekday() is a function that takes in a date and outputs what day of the week it is on. To give an interpretation of these formulas, first consider the numerator. We have that each citation that occurred on day $w$ in street segment $s$ was assigned to a corresponding 15 minute bin. If there were multiple tickets on the same day in the same time bin, we recorded only one ticket, thus giving the indicator of there being at least one instance of enforcement and illegal parking. Lastly, the number of tickets in each time bin $t$ was summed and divided by the total number of weekdays corresponding to day $w$ in the dataset, thus giving an estimate of the numerator. Figure 4 shows a visual representation of how this was calculated:
+
+To give an interpretation of these formulas, first consider the numerator. We have that each citation that occurred on day $w$ in street segment $s$ was assigned to a corresponding 15 minute bin. If there were multiple tickets on the same day in the same time bin, we recorded only one ticket, thus giving the indicator of there being at least one instance of enforcement and illegal parking. Lastly, the number of tickets in each time bin $t$ was summed and divided by the total number of weekdays corresponding to day $w$ in the dataset, thus giving an estimate of the numerator. Figure 4 shows a visual representation of how this was calculated:
 \vspace{-0.2cm}
 \begin{figure}[H]
 \begin{center}
