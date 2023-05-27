@@ -51,7 +51,7 @@ $$\widehat{P(E \cap I \mid T = t, S = s, W = w)} = \frac{\sum\limits_{\text{week
 
 The following formula was used to empirically calculate an estimate of the denominator as carried out in [prob_i.ipynb](notebooks/prob_i.ipynb):
 
-$$\widehat{P(I \mid T = t, S = s, W = w)} = \frac{\sum\limits_{\text{weekday(date)} = w} \mathbbm{1}[\text{&#35unpaid meters}(s, t, \text{date}) > 0]}{\text{\#weekday(date)} = w}$$
+$$\widehat{P(I \mid T = t, S = s, W = w)} = \frac{\sum\limits_{\text{weekday(date)} = w} \mathbbm{1}[&#35\text{unpaid meters}(s, t, \text{date}) > 0]}{\text{\#weekday(date)} = w}$$
 
 To give an interpretation of these formulas, first consider the numerator. We have that each citation that occurred on day $w$ in street segment $s$ was assigned to a corresponding 15 minute bin. If there were multiple tickets on the same day in the same time bin, we recorded only one ticket, thus giving the indicator of there being at least one instance of enforcement and illegal parking. Lastly, the number of tickets in each time bin $t$ was summed and divided by the total number of weekdays corresponding to day $w$ in the dataset, thus giving an estimate of the numerator. Figure 4 shows a visual representation of how this was calculated:
     \makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{numerator_analysis.png}}
