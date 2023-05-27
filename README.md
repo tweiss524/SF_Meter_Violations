@@ -2,7 +2,7 @@
 
 This project was completed in collaboration with Jeffrey Kuo, Tim Tantivilaisin, and Bryan Wang at the University of California, Berkeley, with guidance from Professor Thomas Bengtsson.
 
-The following paragraphs give a brief run-through of the contents of this repository. A more detailed verson of the steps is written in 
+The following paragraphs give a brief run-through of the contents of this repository. A more detailed version of the steps is written in 
 [Detailed_Report.pdf](Detailed_Report.pdf).
 
 # Introduction
