@@ -44,10 +44,7 @@ In terms of notation, define
 - $I = \text{event that illegal parking happens}$
 
 Then, the probability of getting a ticket given a time bin $T$, a street segment $S$, and a day of week $W$ is denoted as 
-\begin{align*}
-    p_{t, s, w} &= P(E \mid I, T = t, S = s, W = w)\\
-    &= \frac{P(E \cap I \mid T = t, S = s, W = w)}{P(I \mid T = t, S = s, W = w)}
-\end{align*}
+    $$p_{t, s, w} = P(E \mid I, T = t, S = s, W = w) = \frac{P(E \cap I \mid T = t, S = s, W = w)}{P(I \mid T = t, S = s, W = w)}$$
 
 The following formula was used to empirically calculate an estimate of the numerator as carried out in [prob_e_and_i.ipynb](notebooks/prob_e_and_i.ipynb):
 $$\stackon[-8pt]{P(E \cap I \mid T = t, S = s, W = w)}{\vstretch{2}{\hstretch{4}{\widehat{\phantom{\;\;\;\;\;\;\;\;}}}}} = \frac{\sum\limits_{\text{weekday(date)} = w} \mathbbm{1}[\text{\#tickets}(s, t, \text{date}) > 0]}{\text{\#weekday(date)} = w}$$
@@ -57,23 +54,11 @@ The following formula was used to empirically calculate an estimate of the denom
 $$\stackon[-8pt]{P(I \mid T = t, S = s, W = w)}{\vstretch{2}{\hstretch{4}{\widehat{\phantom{\;\;\;\;\;\;\;\;}}}}} = \frac{\sum\limits_{\text{weekday(date)} = w} \mathbbm{1}[\text{\#unpaid meters}(s, t, \text{date}) > 0]}{\text{\#weekday(date)} = w}$$
 
 To give an interpretation of these formulas, first consider the numerator. We have that each citation that occurred on day $w$ in street segment $s$ was assigned to a corresponding 15 minute bin. If there were multiple tickets on the same day in the same time bin, we recorded only one ticket, thus giving the indicator of there being at least one instance of enforcement and illegal parking. Lastly, the number of tickets in each time bin $t$ was summed and divided by the total number of weekdays corresponding to day $w$ in the dataset, thus giving an estimate of the numerator. Figure 4 shows a visual representation of how this was calculated:
-\vspace{-0.2cm}
-\begin{figure}[H]
-\begin{center}
     \makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{numerator_analysis.png}}
-    \vspace{-1.3cm}
     \caption{A simple example estimating the numerator where $W=$ Wednesday on one particular street segment.}
-\end{center}
-\end{figure}
-\vspace{-0.8cm}
+    
 Now, considering the denominator, we have that for a street segment $s$ and weekday $w$, the 15 minute time bins that each transaction covers for each meter on street $s$ was recorded. If there were no transactions that covered a 15 minute time bin, or if there were gaps in transactions that exceeded a 3 minute grace period (time allowed for one car to leave and another car to park and pay), we considered the meter to have been unpaid during that time bin.  Next, we aggregated all the time intervals for when there was at least one unpaid meter and used this to generate an indicator of an unpaid meter for the corresponding time bin on street $s$. Lastly, these indicators were summed up over all weekdays corresponding to day $w$ and divided by the total number of weekdays corresponding to day $w$ in the dataset, thus giving an estimate of the denominator. Figure 5 shows a visual representation of how this was calculated over one day:
-\begin{figure}[H]
-\begin{center}
     \makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{denominator_analysis.png}}
     \caption{A simple example estimating the denominator where $W=$ Wednesday on one particular street segment.}
-\end{center}
-\end{figure}
-\vspace{-0.8cm}
-With these estimates of the numerator and denominator, we obtain our final estimate of the probability of getting a parking ticket due to not paying the meter given a 15 minute time bin defined by $T$, a street segment $S$, and day of the week $W$ as notated by $$\widehat p_{t, s, w} =
-    \frac{\stackon[-8pt]{P(E \cap I \mid T = t, S = s, W = w)}{\vstretch{2}{\hstretch{4}{\widehat{\phantom{\;\;\;\;\;\;\;\;}}}}} }{\stackon[-8pt]{P(I \mid T = t, S = s, W = w)}{\vstretch{2}{\hstretch{4}{\widehat{\phantom{\;\;\;\;\;\;\;\;}}}}}}$$
+    
 In devising this model, the following assumptions were made. The first is that at any given time, every metered spot available will be filled. In this sense, the assumption is made that if there are any meters not being paid for on a particular street segment during a particular time interval, then we conclude that there is someone parking illegally (this is not always true and thus results in many underestimated probabilities). The second assumption is that parking enforcement will spend at most fifteen minutes on a street segment. The final assumption is that if parking enforcement is on a street segment, they will ticket all cars violating parking regulations with 100$\%$ certainty.
