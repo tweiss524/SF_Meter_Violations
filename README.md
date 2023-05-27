@@ -66,31 +66,17 @@ Now, considering the denominator, we have that for a street segment $s$ and week
 In devising this model, the following assumptions were made. The first is that at any given time, every metered spot available will be filled. In this sense, the assumption is made that if there are any meters not being paid for on a particular street segment during a particular time interval, then we conclude that there is someone parking illegally (this is not always true and thus results in many underestimated probabilities). The second assumption is that parking enforcement will spend at most fifteen minutes on a street segment. The final assumption is that if parking enforcement is on a street segment, they will ticket all cars violating parking regulations with 100$\%$ certainty.
 
 # References 
-SFMTA - Parking Citations
-%\textit{Wikipedia}. Wikimedia Foundation.
-\\\texttt{https://data.sfgov.org/Transportation/SFMTA-Parking-Citations/ab4h-6ztd}
+SFMTA - Parking Citations: https://data.sfgov.org/Transportation/SFMTA-Parking-Citations/ab4h-6ztd
 
-Street Sweeping Schedule
-%\textit{Probability and statistics}.
-\\\texttt{https://data.sfgov.org/City-Infrastructure/Street-Sweeping-Schedule/yhqp-riqs}
+Street Sweeping Schedule: https://data.sfgov.org/City-Infrastructure/Street-Sweeping-Schedule/yhqp-riqs
 
-SFMTA Parking Meter Detailed Revenue Transactions
-%\textit{Probability and statistics}.
-\\\texttt{https://data.sfgov.org/Transportation/SFMTA-Parking-Meter-Detailed-Revenue-Transactions/\\imvp-dq3v/data}
+SFMTA Parking Meter Detailed Revenue Transactions: https://data.sfgov.org/Transportation/SFMTA-Parking-Meter-Detailed-Revenue-Transactions/\\imvp-dq3v/data
 
-Map of Parking Meters
-%\textit{Probability and statistics}.
-\\\texttt{https://data.sfgov.org/Transportation/Map-of-Parking-Meters/fqfu-vcqd}
+Map of Parking Meters: https://data.sfgov.org/Transportation/Map-of-Parking-Meters/fqfu-vcqd
 
-US Census Geocoder
-%\textit{Statistics How To}.
-\\\texttt{https://census-geocoder.readthedocs.io/en/latest/}
+US Census Geocoder: https://census-geocoder.readthedocs.io/en/latest/
 
-Ning Jia (2022): What are the odds of getting a parking ticket in Toronto?
-\\\texttt{https://towardsdatascience.com/what-are-the-odds-of-getting-a-parking-ticket-in-\\
-toronto-1f090d
-d0c608}
+Ning Jia (2022): What are the odds of getting a parking ticket in Toronto? https://towardsdatascience.com/what-are-the-odds-of-getting-a-parking-ticket-in-toronto-1f090dd0c608
 
 Song Gao, Mingxiao Li, Yunlei Liang, Joseph Marks, Yuhao Kang \& Moying Li (2019):
-Predicting the spatiotemporal legality of on-street parking using open data and machine learning
-\\\texttt{https://www.tandfonline.com/doi/full/10.1080/19475683.2019.1679882}
+Predicting the spatiotemporal legality of on-street parking using open data and machine learning https://www.tandfonline.com/doi/full/10.1080/19475683.2019.1679882
